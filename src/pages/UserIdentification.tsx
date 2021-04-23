@@ -9,18 +9,16 @@ import {
     Text, 
     TextInput, 
     View,
-    Keyboard
+    Keyboard,
+    Alert
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '../components/Button';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 export function UserIdentification(){
     const navigation = useNavigation();
-
-    function handleSubmit(){
-        navigation.navigate('Confirmation');
-    }
 
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, SetIsFilled] = useState(false);
@@ -37,6 +35,16 @@ export function UserIdentification(){
         SetIsFilled(!!value);
         setName(value);
     }
+
+    async function handleSubmit(){
+        if(!name)
+            return Alert.alert('Me diz como chamar você, por favor 😢');
+
+        await AsyncStorage.setItem('@plantmanager:user', name);
+        
+            navigation.navigate('Confirmation');
+    }
+    
     return(
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView 
