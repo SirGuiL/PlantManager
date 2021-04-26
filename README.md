@@ -5,3 +5,4 @@ Aplicativo desenvolvido na Next Level Week 5
 - React-Native
 - Expo
 - TypeScript
+- AsyncStorage 
